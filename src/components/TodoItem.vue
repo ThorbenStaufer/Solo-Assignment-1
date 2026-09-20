@@ -7,11 +7,15 @@ interface Props {
 
 const props = defineProps<Props>();
 const emit = defineEmits<{
-    ( e: 'toggleTodo', id: number ): void
+    ( e: 'toggleTodo', id: number ): void,
+    ( e: 'deleteTodo', id: number ): void
 }>();
 
 function toggleTodo(): void {
     emit('toggleTodo', props.todo.id);
+}
+function deleteTodo(): void {
+    emit('deleteTodo', props.todo.id);
 }
 </script>
 
@@ -21,4 +25,5 @@ function toggleTodo(): void {
         Erledigt:
         <input type="checkbox" :checked="todo.done" @click="toggleTodo" />
     </label>
+    <button @click="deleteTodo" >Delete</button>
 </template>

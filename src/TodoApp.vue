@@ -21,6 +21,9 @@ const filteredTodos = computed<Todo[]>(() => {
 function toggleTodo(id: number): void {
   todos.value = todos.value.map((todo) => todo.id === id ? { ...todo, done: !todo.done } : todo);
 }
+function deleteTodo(id: number): void {
+  todos.value = todos.value.filter((todo) => todo.id !== id);
+}
 </script>
 
 <template>
@@ -32,7 +35,7 @@ function toggleTodo(id: number): void {
       <option :value="FilterOption.DONE">Erledigt</option>
     </select>
   </label>
-  <TodoList :todos="filteredTodos" @toggle-todo="toggleTodo" />
+  <TodoList :todos="filteredTodos" @toggle-todo="toggleTodo" @delete-todo="deleteTodo" />
 </template>
 
 <style scoped>

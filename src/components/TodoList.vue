@@ -8,18 +8,22 @@ interface Props {
 
 defineProps<Props>();
 const emit = defineEmits<{
-    ( e: 'toggleTodo', id: number ): void
+    ( e: 'toggleTodo', id: number ): void,
+    ( e: 'deleteTodo', id: number ): void
 }>();
 
 function toggleTodo(id: number): void {
     emit('toggleTodo', id);
+}
+function deleteTodo(id: number): void {
+    emit('deleteTodo', id);
 }
 </script>
 
 <template>
     <ul>
         <li v-for="todo in todos" :key="todo.id" >
-            <TodoItem :todo @toggle-todo="toggleTodo" />
+            <TodoItem :todo @toggle-todo="toggleTodo" @delete-todo="deleteTodo" />
         </li>
     </ul>
 </template>
