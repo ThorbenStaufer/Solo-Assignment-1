@@ -27,42 +27,24 @@ function deleteTodo(id: number): void {
 </script>
 
 <template>
-  <label>
-    Filter:
-    <select id="todoFilter" v-model="activeFilter">
-      <option :value="FilterOption.ALL">Alle</option>
-      <option :value="FilterOption.OPEN">Offen</option>
-      <option :value="FilterOption.DONE">Erledigt</option>
-    </select>
-  </label>
-  <TodoList :todos="filteredTodos" @toggle-todo="toggleTodo" @delete-todo="deleteTodo" />
+  <div id="main">
+    <label>
+      Filter:
+      <select id="todoFilter" v-model="activeFilter">
+        <option :value="FilterOption.ALL">Alle</option>
+        <option :value="FilterOption.OPEN">Offen</option>
+        <option :value="FilterOption.DONE">Erledigt</option>
+      </select>
+    </label>
+    <TodoList :todos="filteredTodos" @toggle-todo="toggleTodo" @delete-todo="deleteTodo" />
+  </div>
 </template>
 
 <style scoped>
-header {
-  line-height: 1.5;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
+#main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2em;
 }
 </style>

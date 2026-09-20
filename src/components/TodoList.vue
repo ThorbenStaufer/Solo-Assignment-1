@@ -27,3 +27,10 @@ function deleteTodo(id: number): void {
         </li>
     </ul>
 </template>
+
+<style lang="css" scoped>
+    ul {
+        padding: 0;
+        list-style: none;
+    }
+</style>
