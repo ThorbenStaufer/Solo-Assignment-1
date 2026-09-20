@@ -9,6 +9,7 @@ const todos = ref<Todo[]>([
   { id: 2, text: 'Review this solo assignment', done: false }
 ]);
 const activeFilter = ref<FilterOption>(FilterOption.ALL);
+const newTodo = ref<string>();
 
 const filteredTodos = computed<Todo[]>(() => {
   switch (activeFilter.value) {
@@ -24,17 +25,28 @@ function toggleTodo(id: number): void {
 function deleteTodo(id: number): void {
   todos.value = todos.value.filter((todo) => todo.id !== id);
 }
+function addTodo(): void {
+  if (!newTodo.value) {
+    return;
+  }
+  todos.value.push({ id: todos.value.length, text: newTodo.value, done: false });
+  newTodo.value = undefined;
+}
 </script>
 
 <template>
   <div id="main">
-    <label>
+    <label id="todo-filter">
       Filter:
-      <select id="todoFilter" v-model="activeFilter">
+      <select v-model="activeFilter">
         <option :value="FilterOption.ALL">Alle</option>
         <option :value="FilterOption.OPEN">Offen</option>
         <option :value="FilterOption.DONE">Erledigt</option>
       </select>
+    </label>
+    <label id="todo-add">
+      <input type="text" v-model="newTodo" />
+      <button @click="addTodo">Add</button>
     </label>
     <TodoList :todos="filteredTodos" @toggle-todo="toggleTodo" @delete-todo="deleteTodo" />
   </div>
@@ -42,9 +54,13 @@ function deleteTodo(id: number): void {
 
 <style scoped>
 #main {
+  margin-top: 5em;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2em;
+}
+
+#todo-filter {
+  margin-bottom: 2em;
 }
 </style>
